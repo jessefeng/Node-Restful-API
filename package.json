@@ -1,0 +1,26 @@
+{
+  "name": "node-restful-api",
+  "version": "1.0.0",
+  "description": "Node.js RESTful API for jingzhefeng.com website",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jessefeng/Node-Restful-API.git"
+  },
+  "keywords": [
+    "node",
+    "restful"
+  ],
+  "author": "jessefeng",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jessefeng/Node-Restful-API/issues"
+  },
+  "homepage": "https://github.com/jessefeng/Node-Restful-API#readme",
+  "dependencies": {
+    "express": "^4.16.3"
+  }
+}
