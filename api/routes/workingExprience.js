@@ -1,46 +1,79 @@
 const express = require('express');
+const workExpModel = require('../models/workingExprience');
+const mongoose = require('mongoose');
+
 const router = express.Router();
 
 router.get('/work', (req,res,next) => {
-    res.status(200).json({
-        message: 'working exprience GET request'
-    });
+    workExpModel.find()
+        .exec()
+        .then((docs)=> {
+            res.status(200).json(docs);
+        })
+        .catch((err) => {
+            console.log(err);
+            res.status(500).json({error:err});
+        });
 });
 
 router.post('/work', (req,res,next) => {
-    const workExprience = {
-      companyName: req.body.companyName,
-      period: req.body.period
-    };
-    res.status(201).json({
-        message: 'working exprience POST request',
-        createWorkExprience: workExprience
+    const workExprience = new workExpModel({
+        _id:new mongoose.Types.ObjectId(),
+          companyName: req.body.companyName,
+          period: req.body.period
     });
-});
-
-router.get('/work/:skillID', (req,res,next) => {
-    const skillID = req.params.skillID;
-    if(skillID === 'javascript'){
-        res.status(200).json({
-            message: `working skill with master language ${skillID}`
+    workExprience
+        .save()
+        .then((result) => {
+            console.log(result);
+            res.status(201).json({
+                message: 'Handling POST requests to /work',
+                createWorkExprience: workExprience
+            });
+        })
+        .catch((err) => {
+            console.log(err);
+            res.status(500).json({error:err});
         });
-    }else {
-        res.status(200).json({
-            message:  'working skill others'
+});
+
+router.get('/work/:workExpID', (req,res,next) => {
+    const workExpID = req.params.workExpID;
+    workExpModel.findById(workExpID)
+        .exec()
+        .then((doc)=> {
+            doc ? res.status(200).json(doc) : res.status(200).json({message: 'empty result'});
+        })
+        .catch((err) => {
+            console.log(err);
+            res.status(500).json({error:err});
         });
-    }
 });
 
-router.patch('/work/:skillID', (req,res,next) => {
-    res.status(200).json({
-        message: 'patch work skill'
-    });
+router.patch('/work/:workExpID', (req,res,next) => {
+    const workExpID = req.params.workExpID;
+    workExpModel.update({_id:workExpID}, {$set: {...req.body}})
+        .exec()
+        .then((result)=> {
+            res.status(200).json(result);
+        })
+        .catch((err) => {
+            console.log(err);
+            res.status(500).json({error:err});
+        });
 });
 
-router.delete('/work/:skillID', (req,res,next) => {
-    res.status(200).json({
-        message: 'delete work skill'
-    });
+router.delete('/work/:workExpID', (req,res,next) => {
+    const workExpID = req.params.workExpID;
+    workExpModel.remove({_id:workExpID})
+        .exec()
+        .then((result)=> {
+            res.status(200).json(result);
+        })
+        .catch((err) => {
+            console.log(err);
+            res.status(500).json({error:err});
+        });
 });
 
 module.exports = router;

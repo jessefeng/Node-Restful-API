@@ -1,9 +1,17 @@
 const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
+const mongoose = require('mongoose');
 const workingExprienceRoutes = require('./api/routes/workingExprience');
 const lifeMomentsRoutes = require('./api/routes/lifeStyle');
 const requestLog = require('./log/requestLog');
+
+//DB connection
+mongoose.connect(`mongodb+srv://jingzhe:${process.env.MONGO_ATLAS_PW}@jingzhe-website-p7usg.mongodb.net/test?retryWrites=true`,
+    {
+        useNewUrlParser: true
+    }
+);
 
 //Handler Log File
 requestLog(app);
