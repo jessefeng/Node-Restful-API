@@ -8,8 +8,13 @@ router.get('/work', (req,res,next) => {
 });
 
 router.post('/work', (req,res,next) => {
+    const workExprience = {
+      companyName: req.body.companyName,
+      period: req.body.period
+    };
     res.status(201).json({
-        message: 'working exprience POST request'
+        message: 'working exprience POST request',
+        createWorkExprience: workExprience
     });
 });
 
