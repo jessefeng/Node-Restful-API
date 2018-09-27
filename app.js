@@ -7,7 +7,7 @@ const lifeMomentsRoutes = require('./api/routes/lifeStyle');
 const requestLog = require('./log/requestLog');
 
 //DB connection
-mongoose.connect(`mongodb+srv://jingzhe:${process.env.MONGO_ATLAS_PW}@jingzhe-website-p7usg.mongodb.net/test?retryWrites=true`,
+mongoose.connect(`mongodb+srv://jingzhe:${process.env.MONGO_ATLAS_PW}@jingzhe-website-p7usg.mongodb.net/website?retryWrites=true`,
     {
         useNewUrlParser: true
     }
