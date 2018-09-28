@@ -5,5 +5,5 @@ const app = require('./app');
 const server = http.createServer(app);
 
 server.listen(port, ()=>{
-    console.log(`Node Server started on ${port}`);
+    console.log(`Node Server Started on ${port}`);
 });
