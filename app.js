@@ -6,7 +6,7 @@ const workingExprienceRoutes = require('./api/routes/workingExprience');
 const lifeMomentsRoutes = require('./api/routes/lifeStyle');
 const requestLog = require('./log/requestLog');
 
-//DB connection
+//MongoDB connection
 mongoose.connect(`mongodb+srv://jingzhe:${process.env.MONGO_ATLAS_PW}@jingzhe-website-p7usg.mongodb.net/website?retryWrites=true`,
     {
         useNewUrlParser: true
