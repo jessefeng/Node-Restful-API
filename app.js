@@ -2,8 +2,8 @@ const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
-const workingExprienceRoutes = require('./api/routes/workingExprience');
-const lifeMomentsRoutes = require('./api/routes/lifeStyle');
+const productRoutes  = require('./api/routes/products');
+const orderRoutes  = require('./api/routes/orders');
 const requestLog = require('./log/requestLog');
 
 //DB connection
@@ -32,8 +32,8 @@ app.use((req,res,next) => {
 });
 
 //Handler Request Routing
-app.use('/api/resume', workingExprienceRoutes);
-app.use('/api/life', lifeMomentsRoutes);
+app.use('/api/products', productRoutes);
+app.use('/api/orders', orderRoutes);
 
 //Error handling for invalida request
 app.use((req, res, next)=>{
