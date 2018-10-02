@@ -21,7 +21,7 @@ router.get("/", (req, res, next) => {
                         product: doc.product,
                         quantity: doc.quantity,
                         request: {
-                            url: "/orders/" + doc._id
+                            url: "/api/orders/" + doc._id
                         }
                     };
                 })
@@ -58,7 +58,7 @@ router.post("/", (req, res, next) => {
                     quantity: result.quantity
                 },
                 request: {
-                    url: "/orders/" + result._id
+                    url: "/api/orders/" + result._id
                 }
             });
         })

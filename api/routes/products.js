@@ -28,7 +28,7 @@ router.get("/", (req, res, next) => {
                         _id: doc._id,
                         productImage: doc.productImage,
                         request: {
-                            url: "/products/" + doc._id
+                            url: "/api/products/" + doc._id
                         }
                     };
                 })
@@ -66,7 +66,7 @@ router.post("/",upload.single('productImage'), (req, res, next) => {
                     price: result.price,
                     _id: result._id,
                     request: {
-                        url: "/products/" + result._id
+                        url: "/api/products/" + result._id
                     }
                 }
             });
@@ -88,7 +88,7 @@ router.get("/:productId", (req, res, next) => {
                 res.status(200).json({
                     product: doc,
                     request: {
-                        url: '/products/'+id
+                        url: '/api/products/'+id
                     }
                 });
             } else {
@@ -110,7 +110,7 @@ router.patch("/:productId", (req, res, next) => {
             res.status(200).json({
                 message: 'Product updated',
                 request: {
-                    url: '/products/' + id
+                    url: '/api/products/' + id
                 }
             });
         })
