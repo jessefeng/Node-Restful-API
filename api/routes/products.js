@@ -91,7 +91,7 @@ router.get("/:productId", (req, res, next) => {
 
 router.patch("/:productId", (req, res, next) => {
     const id = req.params.productId;
-    Product.update({ _id: id }, {$set: {...req.body}})
+    Product.updateOne({ _id: id }, {$set: {...req.body}})
         .exec()
         .then(result => {
             res.status(200).json({

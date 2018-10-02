@@ -9,7 +9,8 @@ const router = express.Router();
 // Handle incoming GET requests to /orders
 router.get("/", (req, res, next) => {
     Order.find()
-        .select("productId quantity _id")
+        .select("product quantity _id")
+        .populate('product', 'name price')
         .exec()
         .then(docs => {
             res.status(200).json({
@@ -17,10 +18,10 @@ router.get("/", (req, res, next) => {
                 orders: docs.map(doc => {
                     return {
                         _id: doc._id,
-                        productId: doc.productId,
+                        product: doc.product,
                         quantity: doc.quantity,
                         request: {
-                            url: "http://localhost:3000/orders/" + doc._id
+                            url: "/orders/" + doc._id
                         }
                     };
                 })
@@ -34,7 +35,7 @@ router.get("/", (req, res, next) => {
 });
 
 router.post("/", (req, res, next) => {
-    Product.findById(req.body.productId)
+    Product.findById(req.body.product)
         .then(product => {
             if (!product) {
                 return res.status(404).json({
@@ -44,7 +45,7 @@ router.post("/", (req, res, next) => {
             const order = new Order({
                 _id: mongoose.Types.ObjectId(),
                 quantity: req.body.quantity,
-                productId: req.body.productId
+                product: req.body.product
             });
             return order.save();
         })
@@ -53,11 +54,11 @@ router.post("/", (req, res, next) => {
                 message: "Order stored",
                 createdOrder: {
                     _id: result._id,
-                    productId: result.productId,
+                    product: result.product,
                     quantity: result.quantity
                 },
                 request: {
-                    url: "http://localhost:3000/orders/" + result._id
+                    url: "/orders/" + result._id
                 }
             });
         })
@@ -94,8 +95,8 @@ router.delete("/:orderId", (req, res, next) => {
                 message: "Order deleted",
                 request: {
                     type: "POST",
-                    url: "http://localhost:3000/orders",
-                    body: { productId: "ID", quantity: "Number" }
+                    url: "/orders",
+                    body: { product: "ID", quantity: "Number" }
                 }
             });
         })
