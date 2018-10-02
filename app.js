@@ -2,6 +2,7 @@ const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
+const path = require('path');
 const productRoutes  = require('./api/routes/products');
 const orderRoutes  = require('./api/routes/orders');
 const requestLog = require('./log/requestLog');
@@ -17,6 +18,7 @@ mongoose.connect(`mongodb+srv://jingzhe:${process.env.MONGO_ATLAS_PW}@jingzhe-we
 requestLog(app);
 
 //middleware
+app.use('/public', express.static(path.join(__dirname, 'public')));
 app.use(bodyParser.urlencoded({extended:false}));
 app.use(bodyParser.json());
 
