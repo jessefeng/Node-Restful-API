@@ -5,6 +5,8 @@ const mongoose = require('mongoose');
 const path = require('path');
 const productRoutes  = require('./api/routes/products');
 const orderRoutes  = require('./api/routes/orders');
+const userRoutes  = require('./api/routes/users');
+
 const requestLog = require('./log/requestLog');
 
 //MongoDB connection
@@ -36,6 +38,7 @@ app.use((req,res,next) => {
 //Handler Request Routing
 app.use('/api/products', productRoutes);
 app.use('/api/orders', orderRoutes);
+app.use('/api/user',userRoutes);
 
 //Error handling for invalida request
 app.use((req, res, next)=>{

@@ -1,5 +1,6 @@
 {
     "env":{
-        "MONGO_ATLAS_PW": "jingzhe"
+        "MONGO_ATLAS_PW": "jingzhe",
+        "JWT_KEY": "jingzhe"
     }
 }
