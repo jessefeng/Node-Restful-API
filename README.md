@@ -1,8 +1,10 @@
 # Node-Restful-API
 
-This Node Application is running in AWS EC2 instance
-The DNS config by AWS Route 53
-Continuous Integration by Jenkins hook with Github
-Using MongoDB Atlas as Cloud DB
+Node RESTful API Application for My Personal Site. <br />
+Check for Details [Personal Site API Swagger URL](http://jingzhefeng.com:3000/api/)<br />
 
-[Personal Site API Swagger URL](http://jingzhefeng.com:3000/api/)
+* **AWS EC2** - *Instance running Node Application*
+* **Route 53** - *DNS and traffic config*
+* **MongoDB Atlas** - *Cloud NoSQL DB*
+
+
