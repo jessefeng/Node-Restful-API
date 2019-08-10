@@ -1,6 +1,5 @@
-
-.gitignore
-.idea/
+# Created by .ignore support plugin (hsz.mobi)
+npm-debug.log
+.idea
 node_modules/
-access.log
-package-lock.json
+

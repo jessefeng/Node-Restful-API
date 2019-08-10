@@ -1,60 +1,41 @@
-const express = require('express');
-const app = express();
-const bodyParser = require('body-parser');
-const mongoose = require('mongoose');
-const path = require('path');
-const productRoutes  = require('./api/routes/products');
-const orderRoutes  = require('./api/routes/orders');
-const userRoutes  = require('./api/routes/users');
+var createError = require('http-errors');
+var express = require('express');
+var path = require('path');
+var cookieParser = require('cookie-parser');
+var logger = require('morgan');
 
-const requestLog = require('./log/requestLog');
+var indexRouter = require('./routes/index');
+var usersRouter = require('./routes/users');
 
-//MongoDB connection
-mongoose.connect(`mongodb+srv://jingzhe:${process.env.MONGO_ATLAS_PW}@jingzhe-website-p7usg.mongodb.net/website?retryWrites=true`,
-    {
-        useNewUrlParser: true
-    }
-);
+var app = express();
 
-//Handler Log File
-requestLog(app);
+// view engine setup
+app.set('views', path.join(__dirname, 'views'));
+app.set('view engine', 'jade');
 
-//middleware
-app.use('/public', express.static(path.join(__dirname, 'public')));
-app.use(bodyParser.urlencoded({extended:false}));
-app.use(bodyParser.json());
+app.use(logger('dev'));
+app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
+app.use(cookieParser());
+app.use(express.static(path.join(__dirname, 'public')));
 
-//Res Header
-app.use((req,res,next) => {
-   res.header('Access-Control-Allow-Origin', '*');
-   res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Authorization');
-   if(req.method === 'OPTIONS'){
-       res.header('Access-Control-Allow-Methods', 'PUT, GET, POST, PATCH, DELETE');
-       return res.status(200).json({});
-   }
-   next();
+app.use('/', indexRouter);
+app.use('/users', usersRouter);
+
+// catch 404 and forward to error handler
+app.use(function(req, res, next) {
+  next(createError(404));
 });
 
-//Handler Request Routing
-app.use('/api/products', productRoutes);
-app.use('/api/orders', orderRoutes);
-app.use('/api/user',userRoutes);
+// error handler
+app.use(function(err, req, res, next) {
+  // set locals, only providing error in development
+  res.locals.message = err.message;
+  res.locals.error = req.app.get('env') === 'development' ? err : {};
 
-//Error handling for invalida request
-app.use((req, res, next)=>{
-    const error = new Error('Not Found');
-    error.status = 404;
-    next(error);
-});
-
-//General Error Handling
-app.use((error, req, res, next) => {
-    res.status(error.status || 500);
-    res.json({
-        error: {
-            message: error.message
-        }
-    })
+  // render the error page
+  res.status(err.status || 500);
+  res.render('error');
 });
 
 module.exports = app;
