@@ -19,7 +19,8 @@ pipeline {
     post {
         success {
             echo 'Built Successfully!'
-            sh 'pm2 restart all'
+            sh 'pm2 stop all'
+            sh 'pm2 start ./bin/www'
         }
     }
 }
