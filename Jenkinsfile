@@ -11,6 +11,7 @@ pipeline {
         }
         stage('Build') { 
             steps {
+                sh 'npm install pm2 -g'
                 sh 'npm install' 
             }
         }
@@ -18,7 +19,7 @@ pipeline {
     post {
         success {
             echo 'Built Successfully!'
-            sh 'npm start'
+            sh 'pm2 restart all'
         }
     }
 }
