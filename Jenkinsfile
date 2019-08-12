@@ -14,10 +14,11 @@ pipeline {
                 sh 'npm install' 
             }
         }
-        stage('Start') {
-            steps {
-                sh 'npm start'
-            }
+    }
+    post {
+        success {
+            echo 'Built Successfully!'
+            sh 'npm start'
         }
     }
 }
