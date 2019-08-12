@@ -19,7 +19,7 @@ pipeline {
     post {
         success {
             echo 'Built Successfully!'
-            sh 'pm2 start ./bin/www'
+            sh 'pm2 start ./bin/www --port 3000'
         }
     }
 }
